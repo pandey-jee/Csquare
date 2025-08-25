@@ -8,7 +8,6 @@ import {
   Clock, 
   MapPin, 
   Users, 
-  Filter,
   ArrowRight,
   Trophy,
   Code,
@@ -128,7 +127,7 @@ export default function EventsSection() {
 
   if (isLoading) {
     return (
-      <section className="py-20 bg-background">
+      <section className="py-20">
         <div className="container mx-auto px-6">
           <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
             {[...Array(6)].map((_, index) => (
@@ -147,119 +146,102 @@ export default function EventsSection() {
   }
 
   return (
-    <section id="events" className="py-24 md:py-32 scroll-mt-20" data-testid="events-section">
-      <div className="container mx-auto px-4 sm:px-6">
-        {/* Section Header */}
-        <div className="events-title text-center mb-16">
-          <Badge variant="secondary" className="mb-4">
-            Events
-          </Badge>
-          <h2 className="text-4xl lg:text-5xl font-bold text-foreground mb-6">
-            Join Our 
-            <span className="text-primary"> Events</span>
+    <section id="events" className="py-20" data-testid="events-section">
+      <div className="container mx-auto px-6">
+        {/* Header */}
+        <div className="text-center mb-16">
+          <h2 className="events-title text-4xl md:text-5xl font-bold text-white mb-6">
+            Upcoming Events
           </h2>
-          <p className="text-xl text-muted-foreground max-w-2xl mx-auto">
-            Workshops, contests, and learning sessions to boost your programming skills.
+          <p className="text-xl text-white/80 max-w-3xl mx-auto">
+            Join our exciting events and boost your programming skills
           </p>
         </div>
 
-        {/* Filter Buttons */}
+        {/* Filter */}
         <div className="events-filter flex justify-center mb-12">
-          <div className="inline-flex bg-muted rounded-xl p-1">
-            {['all', 'upcoming', 'past'].map((filterType) => (
+          <div className="inline-flex bg-white/10 backdrop-blur-sm rounded-xl p-1">
+            {(['all', 'upcoming', 'past'] as const).map((filterOption) => (
               <button
-                key={filterType}
-                onClick={() => setFilter(filterType as any)}
-                className={`px-6 py-2 rounded-lg font-medium transition-all duration-300 capitalize ${
-                  filter === filterType 
+                key={filterOption}
+                onClick={() => setFilter(filterOption)}
+                className={`px-6 py-2 rounded-lg capitalize font-medium transition-all ${
+                  filter === filterOption
                     ? 'bg-primary text-primary-foreground shadow-sm' 
-                    : 'text-muted-foreground hover:text-foreground'
+                    : 'text-white/70 hover:text-white'
                 }`}
               >
-                <Filter className="h-4 w-4 mr-2 inline" />
-                {filterType} Events
+                {filterOption}
               </button>
             ))}
           </div>
         </div>
 
         {/* Events Grid */}
-        <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8 mb-12">
-          {filteredEvents.map((event, index) => {
-            const EventIcon = getEventIcon(event.type);
+        <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8 mb-16">
+          {filteredEvents.map((event) => {
+            const Icon = getEventIcon(event.type);
             const eventDate = new Date(event.date);
-            const isUpcoming = eventDate >= new Date();
-            
+            const formattedDate = eventDate.toLocaleDateString('en-US', {
+              month: 'short',
+              day: 'numeric',
+              year: 'numeric'
+            });
+            const formattedTime = eventDate.toLocaleTimeString('en-US', {
+              hour: '2-digit',
+              minute: '2-digit'
+            });
+
             return (
-              <Card 
-                key={event.id}
-                className="event-card group hover:shadow-lg transition-all duration-300 border border-border"
-              >
+              <Card key={event.id} className="event-card group hover:shadow-2xl transition-all duration-300 hover:-translate-y-2 bg-white/90 backdrop-blur-sm border-white/20">
                 <CardHeader className="pb-4">
-                  <div className="flex items-start justify-between mb-3">
-                    <div className={`p-2 rounded-lg ${getEventTypeColor(event.type)}`}>
-                      <EventIcon className="h-5 w-5" />
+                  <div className="flex items-start justify-between">
+                    <div className="flex items-center gap-3">
+                      <div className="p-2 bg-primary/10 rounded-lg">
+                        <Icon className="w-5 h-5 text-primary" />
+                      </div>
+                      <Badge variant="outline" className={getEventTypeColor(event.type)}>
+                        {event.type}
+                      </Badge>
                     </div>
-                    <Badge 
-                      variant={isUpcoming ? "default" : "secondary"}
-                      className="capitalize"
-                    >
-                      {event.type}
-                    </Badge>
                   </div>
                   <CardTitle className="text-xl group-hover:text-primary transition-colors">
                     {event.title}
                   </CardTitle>
                 </CardHeader>
-                
+
                 <CardContent className="space-y-4">
-                  <p className="text-muted-foreground line-clamp-3">
+                  <p className="text-muted-foreground leading-relaxed">
                     {event.description}
                   </p>
-                  
-                  <div className="space-y-2 text-sm">
-                    <div className="flex items-center gap-2 text-muted-foreground">
-                      <Calendar className="h-4 w-4" />
-                      {eventDate.toLocaleDateString('en-US', {
-                        weekday: 'short',
-                        year: 'numeric',
-                        month: 'short',
-                        day: 'numeric'
-                      })}
+
+                  <div className="space-y-2">
+                    <div className="flex items-center gap-2 text-sm">
+                      <Calendar className="w-4 h-4 text-muted-foreground" />
+                      <span>{formattedDate}</span>
                     </div>
-                    
-                    <div className="flex items-center gap-2 text-muted-foreground">
-                      <Clock className="h-4 w-4" />
-                      {eventDate.toLocaleTimeString('en-US', {
-                        hour: 'numeric',
-                        minute: '2-digit',
-                        hour12: true
-                      })}
+                    <div className="flex items-center gap-2 text-sm">
+                      <Clock className="w-4 h-4 text-muted-foreground" />
+                      <span>{formattedTime}</span>
                     </div>
-                    
-                    <div className="flex items-center gap-2 text-muted-foreground">
-                      <MapPin className="h-4 w-4" />
-                      {event.venue}
+                    <div className="flex items-center gap-2 text-sm">
+                      <MapPin className="w-4 h-4 text-muted-foreground" />
+                      <span>{event.venue}</span>
                     </div>
-                    
                     {event.maxParticipants && (
-                      <div className="flex items-center gap-2 text-muted-foreground">
-                        <Users className="h-4 w-4" />
-                        Max {event.maxParticipants} participants
+                      <div className="flex items-center gap-2 text-sm">
+                        <Users className="w-4 h-4 text-muted-foreground" />
+                        <span>Max {event.maxParticipants} participants</span>
                       </div>
                     )}
                   </div>
-                  
-                  <div className="pt-4 border-t border-border">
-                    <Button 
-                      className="w-full group/btn"
-                      variant={isUpcoming ? "default" : "outline"}
-                      disabled={!isUpcoming}
-                    >
-                      {isUpcoming ? 'Register Now' : 'Event Completed'}
-                      {isUpcoming && (
-                        <ArrowRight className="ml-2 h-4 w-4 group-hover/btn:translate-x-1 transition-transform" />
-                      )}
+
+                  <div className="pt-4 flex gap-2">
+                    <Button size="sm" className="flex-1">
+                      Register Now
+                    </Button>
+                    <Button size="sm" variant="outline">
+                      Learn More
                     </Button>
                   </div>
                 </CardContent>
@@ -268,35 +250,18 @@ export default function EventsSection() {
           })}
         </div>
 
-        {/* No Events Message */}
-        {filteredEvents.length === 0 && (
-          <div className="text-center py-12">
-            <Calendar className="h-16 w-16 text-muted-foreground/50 mx-auto mb-4" />
-            <h3 className="text-xl font-semibold text-foreground mb-2">
-              No {filter !== 'all' ? filter : ''} events found
-            </h3>
-            <p className="text-muted-foreground">
-              Check back later for exciting new events and workshops!
-            </p>
-          </div>
-        )}
-
         {/* Call to Action */}
         <div className="text-center">
           <Card className="bg-gradient-to-r from-primary to-blue-600 border-0">
-            <CardContent className="p-8 text-primary-foreground">
-              <h3 className="text-2xl font-bold mb-4">Want to Suggest an Event?</h3>
-              <p className="text-lg opacity-90 mb-6 max-w-2xl mx-auto">
-                Have an idea for a workshop, competition, or learning session? 
-                We'd love to hear from you and make it happen!
+            <CardContent className="p-8">
+              <h3 className="text-2xl font-bold text-white mb-4">
+                Want to organize an event?
+              </h3>
+              <p className="text-white/90 mb-6 max-w-2xl mx-auto">
+                Have an idea for a workshop, contest, or study session? We'd love to hear from you!
               </p>
-              <Button 
-                variant="secondary"
-                size="lg"
-                className="font-semibold"
-                onClick={() => window.open('mailto:events@cSquare.club?subject=Event Suggestion', '_blank')}
-              >
-                Suggest an Event
+              <Button variant="secondary" size="lg" className="bg-white text-primary hover:bg-white/90">
+                Propose Event
                 <ArrowRight className="ml-2 h-4 w-4" />
               </Button>
             </CardContent>

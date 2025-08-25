@@ -179,21 +179,21 @@ export default function HeroSection() {
       <div className="container mx-auto px-4 sm:px-6 relative z-10">
         <div className="grid lg:grid-cols-2 gap-8 lg:gap-16 items-center min-h-[calc(100vh-6rem)]">
           {/* Left Content - Text Section */}
-          <div ref={textRef} className="hero-text space-y-6 lg:space-y-8 lg:pr-8">
+          <div ref={textRef} className="hero-text space-y-6 lg:space-y-8 lg:pr-8 order-2 lg:order-1">
             {/* Welcome Headline */}
             <div className="space-y-4 lg:space-y-6">
-              <h1 className="hero-title text-4xl sm:text-5xl lg:text-6xl xl:text-7xl font-bold text-white leading-tight">
-                <span className="animated-welcome">Welcome to</span>{' '}
+              <h1 className="hero-title text-3xl sm:text-4xl lg:text-5xl xl:text-6xl font-bold text-white leading-tight break-words">
+                <span className="animated-welcome block sm:inline">Welcome to</span>{' '}
                 <span className="block text-primary animated-csquare">C Square</span>
               </h1>
               
               {/* Tagline */}
-              <p className="hero-subtitle text-lg sm:text-xl lg:text-2xl text-white/90 leading-relaxed animated-tagline">
+              <p className="hero-subtitle text-base sm:text-lg lg:text-xl xl:text-2xl text-white/90 leading-relaxed animated-tagline break-words">
                 Competitive Programming Club
               </p>
               
               {/* Description */}
-              <p className="text-white/80 text-base sm:text-lg leading-relaxed max-w-xl animated-description">
+              <p className="text-white/80 text-sm sm:text-base lg:text-lg leading-relaxed max-w-xl animated-description break-words">
                 Join our community of passionate coders. Learn, compete, and excel together.
               </p>
             </div>
@@ -226,17 +226,17 @@ export default function HeroSection() {
           </div>
 
           {/* Right Content - Logo Section */}
-          <div ref={logoRef} className="hero-logo flex justify-center lg:justify-end">
-            <div className="relative group">
+          <div ref={logoRef} className="hero-logo flex justify-center lg:justify-end order-1 lg:order-2">
+            <div className="relative group max-w-full">
               {/* Glowing background effect */}
               <div className="absolute inset-0 bg-gradient-to-r from-primary/30 to-blue-500/30 rounded-full blur-2xl scale-150 group-hover:scale-175 transition-transform duration-500"></div>
               
               {/* Logo container */}
-              <div className="relative bg-white/5 backdrop-blur-sm rounded-2xl lg:rounded-3xl p-6 lg:p-12 border border-white/10 shadow-2xl">
+              <div className="relative bg-white/5 backdrop-blur-sm rounded-2xl lg:rounded-3xl p-4 sm:p-6 lg:p-8 xl:p-12 border border-white/10 shadow-2xl max-w-full overflow-hidden">
                 <img 
                   src={logoSrc}
                   alt="C Square Logo" 
-                  className="w-40 h-40 sm:w-48 sm:h-48 lg:w-64 lg:h-64 xl:w-80 xl:h-80 object-contain filter drop-shadow-2xl transform hover:scale-105 transition-transform duration-500"
+                  className="w-32 h-32 sm:w-40 sm:h-40 md:w-48 md:h-48 lg:w-56 lg:h-56 xl:w-64 xl:h-64 object-contain filter drop-shadow-2xl transform hover:scale-105 transition-transform duration-500 mx-auto"
                 />
                 
                 {/* Rotating ring */}

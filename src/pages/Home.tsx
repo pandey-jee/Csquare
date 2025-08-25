@@ -82,23 +82,23 @@ export default function Home() {
   }, [isLoaded]);
 
   return (
-    <div className="min-h-screen bg-background/95 backdrop-blur-sm overflow-x-hidden" data-testid="home-page">
+    <div className="min-h-screen relative overflow-x-hidden" data-testid="home-page">
       <GeometricBackground />
       <AnimatedWatermark />
       <EventNotificationPopup />
       <Navbar />
-      <main className="relative z-10">
+      <main>
         <HeroSection />
-        <div className="page-section bg-background/90 backdrop-blur-sm">
+        <div className="page-section">
           <StatisticsSection />
         </div>
-        <div className="page-section bg-background/95 backdrop-blur-sm">
+        <div className="page-section">
           <CoreTeamSlider />
         </div>
-        <div className="page-section bg-background/90 backdrop-blur-sm">
+        <div className="page-section">
           <CollaboratorsSection />
         </div>
-        <div className="page-section bg-background/95 backdrop-blur-sm">
+        <div className="page-section">
           <EventsSection />
         </div>
       </main>

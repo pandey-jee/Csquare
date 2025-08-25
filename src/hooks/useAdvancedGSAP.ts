@@ -55,35 +55,7 @@ export const advancedGSAPUtils = {
     });
   },
 
-  // 3D staggered entrance animation
-  staggeredEntrance3D: (selector: string, delayAmount = 0.1) => {
-    const elements = document.querySelectorAll(selector);
-    if (elements.length > 0) {
-      gsap.fromTo(selector, 
-        {
-          opacity: 0,
-          y: 100,
-          rotationX: -90,
-          transformOrigin: "center bottom"
-        },
-        {
-          opacity: 1,
-          y: 0,
-          rotationX: 0,
-          duration: 0.8,
-          stagger: delayAmount,
-          ease: "back.out(1.7)",
-          scrollTrigger: {
-            trigger: selector,
-            start: "top 80%",
-            toggleActions: "play none none reverse"
-          }
-        }
-      );
-    }
-  },
-
-  // Physics-based elastic animation
+  // Elastic hover effect with 3D rotation
   elasticHover: (selector: string) => {
     const elements = document.querySelectorAll(selector);
     
@@ -91,7 +63,8 @@ export const advancedGSAPUtils = {
       element.addEventListener('mouseenter', () => {
         gsap.to(element, {
           scale: 1.05,
-          rotation: 2,
+          rotationY: 5,
+          rotationX: 5,
           duration: 0.4,
           ease: "elastic.out(1, 0.3)"
         });
@@ -100,7 +73,8 @@ export const advancedGSAPUtils = {
       element.addEventListener('mouseleave', () => {
         gsap.to(element, {
           scale: 1,
-          rotation: 0,
+          rotationY: 0,
+          rotationX: 0,
           duration: 0.4,
           ease: "elastic.out(1, 0.3)"
         });
@@ -120,6 +94,79 @@ export const advancedGSAPUtils = {
           start: "top bottom",
           end: "bottom top",
           scrub: speed
+        }
+      });
+    }
+  },
+
+  // Liquid cursor effect
+  liquidCursor: () => {
+    // Simple cursor enhancement - can be expanded
+    const cursor = document.createElement('div');
+    cursor.classList.add('custom-cursor');
+    cursor.style.cssText = `
+      position: fixed;
+      width: 20px;
+      height: 20px;
+      background: rgba(59, 130, 246, 0.3);
+      border-radius: 50%;
+      pointer-events: none;
+      z-index: 9999;
+      mix-blend-mode: difference;
+      transition: transform 0.1s ease;
+    `;
+    document.body.appendChild(cursor);
+
+    document.addEventListener('mousemove', (e) => {
+      gsap.to(cursor, {
+        x: e.clientX - 10,
+        y: e.clientY - 10,
+        duration: 0.1
+      });
+    });
+  },
+
+  // Text reveal animation
+  textReveal: (selector: string) => {
+    const elements = document.querySelectorAll(selector);
+    elements.forEach((element) => {
+      gsap.fromTo(element, {
+        y: 100,
+        opacity: 0
+      }, {
+        y: 0,
+        opacity: 1,
+        duration: 1,
+        ease: "power3.out",
+        scrollTrigger: {
+          trigger: element,
+          start: "top 80%",
+          end: "bottom 20%",
+          toggleActions: "play none none reverse"
+        }
+      });
+    });
+  },
+
+  // Staggered 3D entrance animation
+  staggeredEntrance3D: (selector: string, stagger = 0.2) => {
+    const elements = document.querySelectorAll(selector);
+    if (elements.length > 0) {
+      gsap.fromTo(selector, {
+        opacity: 0,
+        y: 100,
+        rotationX: -15
+      }, {
+        opacity: 1,
+        y: 0,
+        rotationX: 0,
+        duration: 1,
+        stagger: stagger,
+        ease: "power3.out",
+        scrollTrigger: {
+          trigger: selector,
+          start: "top 80%",
+          toggleActions: "play none none reverse"
         }
       });
     }
