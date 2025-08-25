@@ -47,9 +47,11 @@ export default function Navbar() {
       <div className="container mx-auto px-6 py-4">
         <div className="flex items-center justify-between">
           <div className="navbar-logo flex items-center space-x-3">
-            <div className="w-10 h-10 bg-gradient-to-br from-primary to-blue-600 rounded-lg flex items-center justify-center">
-              <span className="text-primary-foreground font-bold text-xl">C²</span>
-            </div>
+            <img 
+              src="/C Square White.png" 
+              alt="CSquare Logo" 
+              className="w-10 h-10 object-contain"
+            />
             <h1 className="text-2xl font-bold text-foreground">CSquare</h1>
           </div>
           
@@ -60,13 +62,6 @@ export default function Navbar() {
               data-testid="nav-home"
             >
               Home
-            </button>
-            <button 
-              onClick={() => scrollToSection('about')}
-              className="nav-link text-foreground/80 hover:text-primary transition-colors duration-300"
-              data-testid="nav-about"
-            >
-              About
             </button>
             <button 
               onClick={() => scrollToSection('team')}

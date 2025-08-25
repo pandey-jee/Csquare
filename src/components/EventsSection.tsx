@@ -41,8 +41,8 @@ export default function EventsSection() {
   const fallbackEvents: Event[] = [
     {
       id: '1',
-      title: 'Weekly Algorithm Workshop',
-      description: 'Deep dive into dynamic programming concepts and practice problems. Perfect for beginners and intermediate programmers.',
+      title: 'Algorithm Workshop',
+      description: 'Learn dynamic programming and practice problem solving.',
       date: '2024-09-15T10:00:00Z',
       venue: 'Computer Lab 101',
       type: 'workshop',
@@ -52,8 +52,8 @@ export default function EventsSection() {
     },
     {
       id: '2',
-      title: 'Inter-College Programming Contest',
-      description: 'Compete against the best programmers from different colleges. Cash prizes and certificates for winners!',
+      title: 'Programming Contest',
+      description: 'Compete with programmers from other colleges. Prizes for winners!',
       date: '2024-09-22T09:00:00Z',
       venue: 'Main Auditorium',
       type: 'contest',
@@ -64,7 +64,7 @@ export default function EventsSection() {
     {
       id: '3',
       title: '48-Hour Hackathon',
-      description: 'Build innovative solutions to real-world problems. Form teams, code, and present your projects.',
+      description: 'Build innovative solutions in teams over the weekend.',
       date: '2024-10-05T18:00:00Z',
       venue: 'Innovation Center',
       type: 'hackathon',
@@ -74,8 +74,8 @@ export default function EventsSection() {
     },
     {
       id: '4',
-      title: 'Data Structures Masterclass',
-      description: 'Learn advanced data structures from industry experts. Includes hands-on coding sessions.',
+      title: 'Data Structures Class',
+      description: 'Master advanced data structures with hands-on practice.',
       date: '2024-10-12T14:00:00Z',
       venue: 'Online (Zoom)',
       type: 'seminar',
@@ -152,15 +152,14 @@ export default function EventsSection() {
         {/* Section Header */}
         <div className="events-title text-center mb-16">
           <Badge variant="secondary" className="mb-4">
-            Events & Activities
+            Events
           </Badge>
           <h2 className="text-4xl lg:text-5xl font-bold text-foreground mb-6">
-            Upcoming 
+            Join Our 
             <span className="text-primary"> Events</span>
           </h2>
-          <p className="text-xl text-muted-foreground max-w-3xl mx-auto leading-relaxed">
-            Join our exciting workshops, competitions, and learning sessions designed to enhance 
-            your programming skills and connect with fellow enthusiasts.
+          <p className="text-xl text-muted-foreground max-w-2xl mx-auto">
+            Workshops, contests, and learning sessions to boost your programming skills.
           </p>
         </div>
 

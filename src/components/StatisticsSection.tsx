@@ -2,7 +2,7 @@ import { useEffect } from 'react';
 import { useQuery } from '@tanstack/react-query';
 import { Card, CardContent } from '@/components/ui/card';
 import { Badge } from '@/components/ui/badge';
-import { Users, Calendar, Trophy, Code, Target, Star } from 'lucide-react';
+import { Users, Calendar, Target, Star } from 'lucide-react';
 import { gsapUtils, useGSAP } from '@/hooks/useGSAP';
 import { ClubStatistics } from '@/types';
 
@@ -67,21 +67,21 @@ export default function StatisticsSection() {
   const statsData = [
     {
       icon: Users,
-      label: "Active Members",
+      label: "Members",
       value: statistics?.totalMembers || 0,
       dataKey: "members",
       color: "text-blue-500",
       bgColor: "bg-blue-500/10",
-      description: "Passionate programmers in our community"
+      description: "Active club members"
     },
     {
       icon: Calendar,
-      label: "Events Organized",
+      label: "Events",
       value: statistics?.totalEvents || 0,
       dataKey: "events",
       color: "text-green-500",
       bgColor: "bg-green-500/10",
-      description: "Workshops, contests, and learning sessions"
+      description: "Workshops and contests"
     },
     {
       icon: Target,
@@ -90,34 +90,16 @@ export default function StatisticsSection() {
       dataKey: "mentors",
       color: "text-purple-500",
       bgColor: "bg-purple-500/10",
-      description: "Dedicated mentors and organizers"
-    },
-    {
-      icon: Trophy,
-      label: "Achievements",
-      value: 25,
-      dataKey: "achievements",
-      color: "text-yellow-500",
-      bgColor: "bg-yellow-500/10",
-      description: "Contest wins and recognitions"
-    },
-    {
-      icon: Code,
-      label: "Projects Completed",
-      value: 50,
-      dataKey: "projects",
-      color: "text-red-500",
-      bgColor: "bg-red-500/10",
-      description: "Real-world applications built"
+      description: "Team leaders"
     },
     {
       icon: Star,
-      label: "Average Rating",
+      label: "Rating",
       value: 4.8,
       dataKey: "rating",
       color: "text-orange-500",
       bgColor: "bg-orange-500/10",
-      description: "Member satisfaction score",
+      description: "Member satisfaction",
       suffix: "/5"
     }
   ];
@@ -151,12 +133,11 @@ export default function StatisticsSection() {
             Our Impact
           </Badge>
           <h2 className="text-4xl lg:text-5xl font-bold text-foreground mb-6">
-            Growing Strong 
-            <span className="text-primary"> Together</span>
+            By the 
+            <span className="text-primary"> Numbers</span>
           </h2>
-          <p className="text-xl text-muted-foreground max-w-3xl mx-auto leading-relaxed">
-            Numbers that reflect our commitment to excellence in competitive programming 
-            and our dedication to building a thriving community of skilled developers.
+          <p className="text-xl text-muted-foreground max-w-2xl mx-auto">
+            Building a strong community of competitive programmers.
           </p>
         </div>
 
@@ -191,32 +172,24 @@ export default function StatisticsSection() {
           <div className="text-center mb-8">
             <h3 className="text-2xl font-bold text-foreground mb-4">Recent Achievements</h3>
             <p className="text-muted-foreground">
-              Celebrating our community's latest successes and milestones
+              Our latest successes
             </p>
           </div>
           
-          <div className="grid md:grid-cols-3 gap-6">
-            <div className="text-center p-6 bg-background rounded-xl border border-border">
-              <Trophy className="h-8 w-8 text-yellow-500 mx-auto mb-3" />
-              <h4 className="font-semibold text-foreground mb-2">Regional Champions</h4>
-              <p className="text-sm text-muted-foreground">
-                1st place in Inter-College Programming Contest 2024
-              </p>
-            </div>
-            
+          <div className="grid md:grid-cols-2 gap-6">
             <div className="text-center p-6 bg-background rounded-xl border border-border">
               <Star className="h-8 w-8 text-blue-500 mx-auto mb-3" />
-              <h4 className="font-semibold text-foreground mb-2">Top Rated Club</h4>
+              <h4 className="font-semibold text-foreground mb-2">Top Rated</h4>
               <p className="text-sm text-muted-foreground">
-                #1 Programming Club in the university rankings
+                #1 programming club in university
               </p>
             </div>
             
             <div className="text-center p-6 bg-background rounded-xl border border-border">
               <Users className="h-8 w-8 text-green-500 mx-auto mb-3" />
-              <h4 className="font-semibold text-foreground mb-2">Growing Community</h4>
+              <h4 className="font-semibold text-foreground mb-2">Growing Fast</h4>
               <p className="text-sm text-muted-foreground">
-                200% increase in active participation this year
+                200% growth in active members
               </p>
             </div>
           </div>

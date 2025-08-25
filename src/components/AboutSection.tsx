@@ -1,160 +1,242 @@
-import { useEffect } from 'react';
-import { Card, CardContent } from '@/components/ui/card';
+import { useEffect, useRef } from 'react';
+import { Button } from '@/components/ui/button';
 import { Badge } from '@/components/ui/badge';
-import { Code, Trophy, Users, Lightbulb, Target, Zap } from 'lucide-react';
-import { gsapUtils, useGSAP } from '@/hooks/useGSAP';
+import { Card, CardContent } from '@/components/ui/card';
+import { Code2, Users, Trophy, Zap } from 'lucide-react';
 
-export default function AboutSection() {
-  const { isLoaded } = useGSAP();
+interface AboutSectionProps {
+  className?: string;
+}
+
+const AboutSection = ({ className = '' }: AboutSectionProps) => {
+  const sectionRef = useRef<HTMLElement>(null);
+  const logoRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
-    if (isLoaded) {
-      gsapUtils.fadeIn('.about-header', 0.5);
-      gsapUtils.slideUp('.about-card', 0.7, 0.2);
-      gsapUtils.slideInLeft('.mission-text', 1);
-      gsapUtils.slideInRight('.vision-text', 1.2);
-    }
-  }, [isLoaded]);
+    if (typeof window !== 'undefined' && window.gsap && window.ScrollTrigger) {
+      const ctx = window.gsap.context(() => {
+        // Logo floating animation
+        window.gsap.to(logoRef.current, {
+          y: -20,
+          duration: 3,
+          ease: "power2.inOut",
+          yoyo: true,
+          repeat: -1,
+        });
 
-  const features = [
-    {
-      icon: Code,
-      title: "Algorithm Mastery",
-      description: "Learn and master advanced algorithms and data structures through hands-on practice and expert guidance.",
-      color: "text-blue-500"
-    },
-    {
-      icon: Trophy,
-      title: "Competitive Excellence",
-      description: "Participate in coding contests, hackathons, and programming competitions at local and national levels.",
-      color: "text-yellow-500"
-    },
-    {
-      icon: Users,
-      title: "Collaborative Learning",
-      description: "Work together with peers, share knowledge, and grow as a community of passionate programmers.",
-      color: "text-green-500"
-    },
-    {
-      icon: Lightbulb,
-      title: "Innovation Hub",
-      description: "Develop creative solutions to real-world problems and build projects that make a difference.",
-      color: "text-purple-500"
-    },
-    {
-      icon: Target,
-      title: "Career Focus",
-      description: "Prepare for technical interviews and build skills that are highly valued in the tech industry.",
-      color: "text-red-500"
-    },
-    {
-      icon: Zap,
-      title: "Skill Acceleration",
-      description: "Fast-track your programming journey with structured learning paths and mentorship.",
-      color: "text-orange-500"
+        // Section entrance animation
+        window.gsap.fromTo(
+          sectionRef.current?.children || [],
+          {
+            opacity: 0,
+            y: 60,
+          },
+          {
+            opacity: 1,
+            y: 0,
+            duration: 1,
+            stagger: 0.2,
+            ease: "power3.out",
+            scrollTrigger: {
+              trigger: sectionRef.current,
+              start: "top 80%",
+              toggleActions: "play none none reverse",
+            },
+          }
+        );
+      });
+
+      return () => ctx.revert();
     }
-  ];
+  }, []);
 
   return (
-    <section id="about" className="py-20 bg-muted/30">
-      <div className="container mx-auto px-6">
-        {/* Section Header */}
-        <div className="about-header text-center mb-16">
-          <Badge variant="secondary" className="mb-4">
-            About CSquare
-          </Badge>
-          <h2 className="text-4xl lg:text-5xl font-bold text-foreground mb-6">
-            Empowering the Next Generation of 
-            <span className="text-primary"> Competitive Programmers</span>
-          </h2>
-          <p className="text-xl text-muted-foreground max-w-3xl mx-auto leading-relaxed">
-            CSquare is more than just a club—it's a community where algorithmic thinking meets creative problem-solving, 
-            where students transform into skilled competitive programmers ready to tackle any challenge.
-          </p>
-        </div>
+    <section
+      ref={sectionRef}
+      id="about"
+      className={`py-24 bg-background relative overflow-hidden ${className}`}
+    >
+      {/* Background Elements */}
+      <div className="absolute inset-0 bg-grid-pattern opacity-5"></div>
+      <div className="absolute top-1/4 right-0 w-96 h-96 bg-primary/10 rounded-full blur-3xl"></div>
+      <div className="absolute bottom-1/4 left-0 w-96 h-96 bg-accent/20 rounded-full blur-3xl"></div>
 
-        {/* Features Grid */}
-        <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8 mb-16">
-          {features.map((feature, index) => (
-            <Card key={index} className="about-card group hover:shadow-lg transition-all duration-300 border border-border">
-              <CardContent className="p-6">
-                <div className="flex items-start space-x-4">
-                  <div className={`p-3 rounded-xl bg-background border border-border group-hover:scale-110 transition-transform duration-300`}>
-                    <feature.icon className={`h-6 w-6 ${feature.color}`} />
+      <div className="container mx-auto px-4 relative z-10">
+        <div className="grid lg:grid-cols-2 gap-16 items-center">
+          {/* Left Content */}
+          <div className="space-y-8">
+            <div className="space-y-4">
+              <Badge variant="outline" className="text-primary border-primary/20 bg-primary/5">
+                About C Square
+              </Badge>
+              
+              <h2 className="text-5xl lg:text-6xl font-bold text-foreground leading-tight">
+                Welcome to{' '}
+                <span className="bg-gradient-to-r from-primary to-blue-600 bg-clip-text text-transparent">
+                  C Square
+                </span>
+              </h2>
+              
+              <p className="text-xl text-muted-foreground leading-relaxed">
+                Your gateway to competitive coding and development.
+              </p>
+            </div>
+
+            <div className="prose prose-lg text-muted-foreground max-w-none">
+              <p>
+                The homepage design for C Square uses a modern, minimalistic layout to highlight 
+                the club's purpose. Key elements are arranged for clarity and impact, with visually 
+                striking placement and balanced spacing for both text and graphics.
+              </p>
+            </div>
+
+            {/* Key Features */}
+            <div className="grid grid-cols-2 gap-4">
+              <Card className="border-primary/20 bg-primary/5 hover:bg-primary/10 transition-colors">
+                <CardContent className="p-4 flex items-center space-x-3">
+                  <Code2 className="h-8 w-8 text-primary" />
+                  <div>
+                    <h4 className="font-semibold">Competitive Programming</h4>
+                    <p className="text-sm text-muted-foreground">Master algorithms</p>
                   </div>
-                  <div className="flex-1">
-                    <h3 className="text-xl font-semibold text-foreground mb-2 group-hover:text-primary transition-colors">
-                      {feature.title}
-                    </h3>
-                    <p className="text-muted-foreground leading-relaxed">
-                      {feature.description}
-                    </p>
+                </CardContent>
+              </Card>
+
+              <Card className="border-accent/20 bg-accent/5 hover:bg-accent/10 transition-colors">
+                <CardContent className="p-4 flex items-center space-x-3">
+                  <Users className="h-8 w-8 text-accent-foreground" />
+                  <div>
+                    <h4 className="font-semibold">Community</h4>
+                    <p className="text-sm text-muted-foreground">30+ members</p>
                   </div>
+                </CardContent>
+              </Card>
+
+              <Card className="border-yellow-500/20 bg-yellow-500/5 hover:bg-yellow-500/10 transition-colors">
+                <CardContent className="p-4 flex items-center space-x-3">
+                  <Trophy className="h-8 w-8 text-yellow-600" />
+                  <div>
+                    <h4 className="font-semibold">Achievements</h4>
+                    <p className="text-sm text-muted-foreground">Contest wins</p>
+                  </div>
+                </CardContent>
+              </Card>
+
+              <Card className="border-green-500/20 bg-green-500/5 hover:bg-green-500/10 transition-colors">
+                <CardContent className="p-4 flex items-center space-x-3">
+                  <Zap className="h-8 w-8 text-green-600" />
+                  <div>
+                    <h4 className="font-semibold">Innovation</h4>
+                    <p className="text-sm text-muted-foreground">Creative solutions</p>
+                  </div>
+                </CardContent>
+              </Card>
+            </div>
+
+            {/* CTA Button */}
+            <div className="pt-4">
+              <Button 
+                size="lg" 
+                className="bg-foreground text-background hover:bg-foreground/90 px-8 py-3 text-lg font-semibold"
+              >
+                Become a Member
+              </Button>
+            </div>
+          </div>
+
+          {/* Right Logo */}
+          <div className="flex justify-center lg:justify-end">
+            <div 
+              ref={logoRef}
+              className="relative"
+            >
+              {/* Large Geometric Logo */}
+              <div className="relative w-80 h-80 lg:w-96 lg:h-96">
+                {/* Main Cross Shape */}
+                <div className="absolute inset-0 flex items-center justify-center">
+                  <svg 
+                    viewBox="0 0 200 200" 
+                    className="w-full h-full"
+                    fill="none"
+                    xmlns="http://www.w3.org/2000/svg"
+                  >
+                    {/* Background glow */}
+                    <defs>
+                      <filter id="glow">
+                        <feGaussianBlur stdDeviation="3" result="coloredBlur"/>
+                        <feMerge> 
+                          <feMergeNode in="coloredBlur"/>
+                          <feMergeNode in="SourceGraphic"/>
+                        </feMerge>
+                      </filter>
+                    </defs>
+                    
+                    {/* Cross arms */}
+                    <rect x="75" y="25" width="50" height="50" fill="#F59E0B" rx="8" filter="url(#glow)" />
+                    <rect x="25" y="75" width="50" height="50" fill="#F59E0B" rx="8" filter="url(#glow)" />
+                    <rect x="125" y="75" width="50" height="50" fill="#F59E0B" rx="8" filter="url(#glow)" />
+                    <rect x="75" y="125" width="50" height="50" fill="#F59E0B" rx="8" filter="url(#glow)" />
+                    
+                    {/* Center circle */}
+                    <circle cx="100" cy="100" r="25" fill="#1E40AF" stroke="#F59E0B" strokeWidth="3" filter="url(#glow)" />
+                    <circle cx="100" cy="100" r="12" fill="#F59E0B" />
+                  </svg>
                 </div>
-              </CardContent>
-            </Card>
-          ))}
-        </div>
 
-        {/* Mission and Vision */}
-        <div className="grid lg:grid-cols-2 gap-12">
-          <div className="mission-text">
-            <h3 className="text-3xl font-bold text-foreground mb-6">Our Mission</h3>
-            <div className="space-y-4 text-muted-foreground">
-              <p className="text-lg leading-relaxed">
-                To create an inclusive environment where students can develop their computational thinking, 
-                problem-solving abilities, and competitive programming skills through collaborative learning 
-                and practical application.
-              </p>
-              <p className="text-lg leading-relaxed">
-                We believe that competitive programming is not just about winning contests—it's about 
-                building a mindset that approaches complex problems with creativity, persistence, and 
-                analytical thinking.
-              </p>
-            </div>
-          </div>
-
-          <div className="vision-text">
-            <h3 className="text-3xl font-bold text-foreground mb-6">Our Vision</h3>
-            <div className="space-y-4 text-muted-foreground">
-              <p className="text-lg leading-relaxed">
-                To be recognized as the premier competitive programming club that produces skilled 
-                software engineers, innovative thinkers, and problem solvers who contribute 
-                meaningfully to the technology industry.
-              </p>
-              <p className="text-lg leading-relaxed">
-                We envision a future where our members not only excel in programming competitions 
-                but also become leaders in technology, driving innovation and positive change in 
-                the digital world.
-              </p>
+                {/* Floating elements */}
+                <div className="absolute -top-4 -left-4 w-8 h-8 bg-primary rounded-full animate-pulse"></div>
+                <div className="absolute -top-2 -right-6 w-6 h-6 bg-yellow-400 rounded-full animate-pulse animation-delay-1000"></div>
+                <div className="absolute -bottom-4 -right-4 w-10 h-10 bg-blue-500 rounded-full animate-pulse animation-delay-2000"></div>
+                <div className="absolute -bottom-2 -left-6 w-7 h-7 bg-green-400 rounded-full animate-pulse animation-delay-1500"></div>
+              </div>
             </div>
           </div>
         </div>
 
-        {/* Call to Action */}
-        <div className="text-center mt-16">
-          <div className="bg-gradient-to-r from-primary to-blue-600 rounded-2xl p-8 text-primary-foreground">
-            <h3 className="text-2xl font-bold mb-4">Ready to Join Our Community?</h3>
-            <p className="text-lg opacity-90 mb-6">
-              Take the first step towards becoming a competitive programming expert
-            </p>
-            <div className="flex flex-col sm:flex-row gap-4 justify-center">
-              <button 
-                onClick={() => document.getElementById('events')?.scrollIntoView({ behavior: 'smooth' })}
-                className="bg-background text-primary px-8 py-3 rounded-xl font-semibold hover:bg-background/90 transition-colors"
-              >
-                View Upcoming Events
-              </button>
-              <button 
-                onClick={() => document.getElementById('team')?.scrollIntoView({ behavior: 'smooth' })}
-                className="border-2 border-background text-background px-8 py-3 rounded-xl font-semibold hover:bg-background hover:text-primary transition-all"
-              >
-                Meet Our Team
-              </button>
-            </div>
-          </div>
+        {/* Design Approach Section */}
+        <div className="mt-24 grid lg:grid-cols-3 gap-8">
+          <Card className="border-border/50 bg-card/50 backdrop-blur-sm">
+            <CardContent className="p-6 text-center">
+              <div className="w-12 h-12 bg-primary/10 rounded-full flex items-center justify-center mx-auto mb-4">
+                <div className="w-6 h-6 bg-primary rounded-full"></div>
+              </div>
+              <h3 className="text-xl font-semibold mb-2">Contrast & Spacing</h3>
+              <p className="text-muted-foreground">
+                Strong visual contrast with vibrant elements creates clarity without clutter, 
+                ensuring each component stands out professionally.
+              </p>
+            </CardContent>
+          </Card>
+
+          <Card className="border-border/50 bg-card/50 backdrop-blur-sm">
+            <CardContent className="p-6 text-center">
+              <div className="w-12 h-12 bg-accent/10 rounded-full flex items-center justify-center mx-auto mb-4">
+                <div className="w-6 h-6 bg-accent-foreground rounded-full"></div>
+              </div>
+              <h3 className="text-xl font-semibold mb-2">Visual Hierarchy</h3>
+              <p className="text-muted-foreground">
+                Element sizes and boldness guide the viewer's eyes from headline to tagline to action, 
+                providing smooth information flow.
+              </p>
+            </CardContent>
+          </Card>
+
+          <Card className="border-border/50 bg-card/50 backdrop-blur-sm">
+            <CardContent className="p-6 text-center">
+              <div className="w-12 h-12 bg-yellow-500/10 rounded-full flex items-center justify-center mx-auto mb-4">
+                <div className="w-6 h-6 bg-yellow-500 rounded-full"></div>
+              </div>
+              <h3 className="text-xl font-semibold mb-2">Perfect Balance</h3>
+              <p className="text-muted-foreground">
+                Strategic placement of text and logo creates harmony, ensuring neither section dominates 
+                while maintaining professional appeal.
+              </p>
+            </CardContent>
+          </Card>
         </div>
       </div>
     </section>
   );
-}
+};
+
+export default AboutSection;

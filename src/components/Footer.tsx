@@ -1,14 +1,9 @@
 import { useEffect } from 'react';
 import { 
-  ExternalLink, 
   Mail, 
   Phone, 
-  MapPin, 
   Github, 
-  Linkedin, 
-  Twitter,
   Instagram,
-  Code,
   Heart,
   ArrowUp
 } from 'lucide-react';
@@ -59,14 +54,15 @@ export default function Footer() {
           {/* Club Info Section */}
           <div className="footer-section space-y-6">
             <div className="flex items-center space-x-3">
-              <div className="w-10 h-10 bg-gradient-to-br from-primary to-blue-600 rounded-lg flex items-center justify-center">
-                <span className="text-primary-foreground font-bold text-xl">C²</span>
-              </div>
+              <img 
+                src="/C Square White.png" 
+                alt="CSquare Logo" 
+                className="w-10 h-10 object-contain"
+              />
               <h3 className="text-2xl font-bold text-foreground" data-testid="text-footer-logo">CSquare</h3>
             </div>
             <p className="text-muted-foreground leading-relaxed" data-testid="text-footer-description">
-              Empowering the next generation of competitive programmers through collaborative learning, 
-              skill development, and innovative problem-solving.
+              Building the next generation of competitive programmers through learning and practice.
             </p>
             
             {/* Social Media Links */}
@@ -78,22 +74,6 @@ export default function Footer() {
                 className="hover:bg-primary/10 hover:text-primary"
               >
                 <Github className="h-5 w-5" />
-              </Button>
-              <Button 
-                variant="ghost" 
-                size="icon"
-                onClick={() => window.open('https://linkedin.com/company/cSquare-club', '_blank')}
-                className="hover:bg-primary/10 hover:text-primary"
-              >
-                <Linkedin className="h-5 w-5" />
-              </Button>
-              <Button 
-                variant="ghost" 
-                size="icon"
-                onClick={() => window.open('https://twitter.com/cSquare_club', '_blank')}
-                className="hover:bg-primary/10 hover:text-primary"
-              >
-                <Twitter className="h-5 w-5" />
               </Button>
               <Button 
                 variant="ghost" 
@@ -118,18 +98,11 @@ export default function Footer() {
                 Home
               </button>
               <button 
-                onClick={() => scrollToSection('about')}
-                className="block text-muted-foreground hover:text-primary transition-colors"
-                data-testid="link-about"
-              >
-                About Us
-              </button>
-              <button 
                 onClick={() => scrollToSection('team')}
                 className="block text-muted-foreground hover:text-primary transition-colors"
                 data-testid="link-team"
               >
-                Our Team
+                Team
               </button>
               <button 
                 onClick={() => scrollToSection('events')}
@@ -187,17 +160,8 @@ export default function Footer() {
           
           {/* Contact Section */}
           <div className="footer-section">
-            <h4 className="text-lg font-semibold text-foreground mb-6" data-testid="text-contact">Contact Us</h4>
+            <h4 className="text-lg font-semibold text-foreground mb-6" data-testid="text-contact">Contact</h4>
             <div className="space-y-4">
-              <div className="flex items-start space-x-3">
-                <MapPin className="h-5 w-5 text-primary mt-0.5 flex-shrink-0" />
-                <div className="text-muted-foreground">
-                  <p>Computer Science Department</p>
-                  <p>University Campus</p>
-                  <p>Building A, Room 101</p>
-                </div>
-              </div>
-              
               <div className="flex items-center space-x-3">
                 <Mail className="h-5 w-5 text-primary flex-shrink-0" />
                 <a 
@@ -220,41 +184,6 @@ export default function Footer() {
                 </a>
               </div>
             </div>
-            
-            {/* Office Hours */}
-            <div className="mt-6 p-4 bg-muted/50 rounded-lg">
-              <h5 className="font-medium text-foreground mb-2">Office Hours</h5>
-              <div className="text-sm text-muted-foreground space-y-1">
-                <p>Monday - Friday: 2:00 PM - 6:00 PM</p>
-                <p>Saturday: 10:00 AM - 4:00 PM</p>
-                <p>Sunday: Closed</p>
-              </div>
-            </div>
-          </div>
-        </div>
-        
-        {/* Newsletter Signup */}
-        <div className="mt-12 p-8 bg-gradient-to-r from-primary to-blue-600 rounded-2xl text-primary-foreground">
-          <div className="text-center max-w-2xl mx-auto">
-            <Code className="h-12 w-12 mx-auto mb-4" />
-            <h3 className="text-2xl font-bold mb-4">Stay Updated</h3>
-            <p className="text-lg opacity-90 mb-6">
-              Get the latest news about workshops, competitions, and exciting opportunities 
-              in the world of competitive programming.
-            </p>
-            <div className="flex flex-col sm:flex-row gap-4 justify-center max-w-md mx-auto">
-              <input 
-                type="email"
-                placeholder="Enter your email"
-                className="flex-1 px-4 py-3 rounded-lg text-foreground bg-background border border-border focus:outline-none focus:ring-2 focus:ring-primary"
-              />
-              <Button 
-                variant="secondary"
-                className="px-8 py-3 font-semibold"
-              >
-                Subscribe
-              </Button>
-            </div>
           </div>
         </div>
         
@@ -266,23 +195,15 @@ export default function Footer() {
             <span>by passionate programmers.</span>
           </div>
           
-          <div className="flex items-center gap-6">
-            <a href="#" className="text-muted-foreground hover:text-primary transition-colors text-sm">
-              Privacy Policy
-            </a>
-            <a href="#" className="text-muted-foreground hover:text-primary transition-colors text-sm">
-              Terms of Service
-            </a>
-            <Button 
-              variant="ghost" 
-              size="sm"
-              onClick={scrollToTop}
-              className="hover:bg-primary/10 hover:text-primary"
-            >
-              <ArrowUp className="h-4 w-4 mr-2" />
-              Back to Top
-            </Button>
-          </div>
+          <Button 
+            variant="ghost" 
+            size="sm"
+            onClick={scrollToTop}
+            className="hover:bg-primary/10 hover:text-primary"
+          >
+            <ArrowUp className="h-4 w-4 mr-2" />
+            Back to Top
+          </Button>
         </div>
       </div>
     </footer>
