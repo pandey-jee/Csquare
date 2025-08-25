@@ -141,46 +141,43 @@ export default function Navbar() {
       </div>
       
       {/* Mobile Menu */}
-      <div className={`md:hidden bg-background border-b border-border shadow-lg transform transition-transform duration-300 ${isMenuOpen ? 'translate-y-0' : '-translate-y-full'}`}>
+      <div className={`md:hidden bg-background/95 backdrop-blur-md border-b border-border shadow-lg transition-all duration-300 ease-in-out ${
+        isMenuOpen 
+          ? 'max-h-96 opacity-100' 
+          : 'max-h-0 opacity-0 overflow-hidden'
+      }`}>
         <div className="px-6 py-4 space-y-4">
           <button 
             onClick={() => scrollToSection('home')}
-            className="block text-foreground/80 hover:text-primary"
+            className="block w-full text-left py-2 text-foreground/80 hover:text-primary transition-colors"
             data-testid="nav-home-mobile"
           >
             Home
           </button>
           <button 
-            onClick={() => scrollToSection('about')}
-            className="block text-foreground/80 hover:text-primary"
-            data-testid="nav-about-mobile"
-          >
-            About
-          </button>
-          <button 
             onClick={() => scrollToSection('team')}
-            className="block text-foreground/80 hover:text-primary"
+            className="block w-full text-left py-2 text-foreground/80 hover:text-primary transition-colors"
             data-testid="nav-team-mobile"
           >
             Team
           </button>
           <button 
             onClick={() => scrollToSection('events')}
-            className="block text-foreground/80 hover:text-primary"
+            className="block w-full text-left py-2 text-foreground/80 hover:text-primary transition-colors"
             data-testid="nav-events-mobile"
           >
             Events
           </button>
           <button 
             onClick={() => scrollToSection('collaborators')}
-            className="block text-foreground/80 hover:text-primary"
+            className="block w-full text-left py-2 text-foreground/80 hover:text-primary transition-colors"
             data-testid="nav-collaborators-mobile"
           >
             Partners
           </button>
           
           {isAuthenticated ? (
-            <div className="space-y-2">
+            <div className="space-y-2 pt-2">
               {(user as any)?.isAdmin && (
                 <Button
                   onClick={() => window.location.href = '/admin'}
@@ -200,13 +197,15 @@ export default function Navbar() {
               </Button>
             </div>
           ) : (
-            <Button
-              onClick={() => window.location.href = '/api/login'}
-              className="w-full bg-primary text-primary-foreground hover:bg-primary/90"
-              data-testid="button-login-mobile"
-            >
-              Admin Login
-            </Button>
+            <div className="pt-2">
+              <Button
+                onClick={() => window.location.href = '/api/login'}
+                className="w-full bg-primary text-primary-foreground hover:bg-primary/90"
+                data-testid="button-login-mobile"
+              >
+                Admin Login
+              </Button>
+            </div>
           )}
         </div>
       </div>

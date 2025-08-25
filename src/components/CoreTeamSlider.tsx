@@ -1,6 +1,7 @@
 import { useEffect, useState } from 'react';
 import { ChevronLeft, ChevronRight, Github, Linkedin, Instagram } from 'lucide-react';
 import { Badge } from '@/components/ui/badge';
+import { advancedGSAPUtils } from '@/hooks/useAdvancedGSAP';
 
 interface TeamMember {
   id: number;
@@ -150,20 +151,36 @@ const CoreTeamSection = () => {
   useEffect(() => {
     if (typeof window !== 'undefined' && window.gsap && isLoaded) {
       const ctx = window.gsap.context(() => {
-        // Initial setup for slides
+        // Initialize 3D transforms for team cards
+        advancedGSAPUtils.init3DTransforms('.slide');
+        
+        // Advanced slide entrance with 3D effects
+        advancedGSAPUtils.staggeredEntrance3D('.team-member-card', 0.2);
+        
+        // Magnetic effect for social media icons
+        advancedGSAPUtils.magneticEffect('.social-icon');
+        
+        // Elastic hover for team member images
+        advancedGSAPUtils.elasticHover('.team-image');
+
+        // Initial setup for slides with enhanced 3D effects
         window.gsap.set('.slide', { 
           rotationY: 45, 
+          rotationX: 15,
           scale: 0.8, 
           x: 100,
-          opacity: 0.6 
+          opacity: 0.6,
+          transformPerspective: 1000
         });
         
         window.gsap.set('.slide[data-current]', { 
-          rotationY: 0, 
+          rotationY: 0,
+          rotationX: 0, 
           scale: 1.2, 
           x: 0,
           opacity: 1,
-          zIndex: 20 
+          zIndex: 20,
+          boxShadow: "0 25px 50px rgba(0,0,0,0.3)"
         });
         
         window.gsap.set('.slide[data-previous]', { 

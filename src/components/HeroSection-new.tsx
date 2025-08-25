@@ -154,7 +154,7 @@ export default function HeroSection() {
         }
       }, 500);
 
-    }, heroRef.current || undefined);
+    }, heroRef.current);
 
     return () => ctx.revert();
   }, [theme, createAnimatedText, addGlowEffect]);

@@ -1,5 +1,6 @@
 import { useEffect } from 'react';
 import { useGSAP } from '@/hooks/useGSAP';
+import { advancedGSAPUtils } from '@/hooks/useAdvancedGSAP';
 import Navbar from '@/components/Navbar';
 import HeroSection from '@/components/HeroSection';
 import StatisticsSection from '@/components/StatisticsSection';
@@ -9,12 +10,22 @@ import EventsSection from '@/components/EventsSection';
 import Footer from '@/components/Footer';
 import AnimatedWatermark from '@/components/AnimatedWatermark';
 import EventNotificationPopup from '@/components/EventNotificationPopup';
+import GeometricBackground from '@/components/GeometricBackground';
 
 export default function Home() {
   const { isLoaded } = useGSAP();
 
   useEffect(() => {
     if (isLoaded && window.ScrollTrigger) {
+      // Initialize liquid cursor effect
+      advancedGSAPUtils.liquidCursor();
+      
+      // Advanced scroll-triggered text reveals
+      advancedGSAPUtils.textReveal('.section-title');
+      
+      // Staggered entrance for all main sections
+      advancedGSAPUtils.staggeredEntrance3D('.page-section', 0.3);
+
       // Smooth scrolling for navigation links
       document.querySelectorAll('a[href^="#"]').forEach((anchor: Element) => {
         anchor.addEventListener('click', function(this: HTMLAnchorElement, e) {
@@ -29,7 +40,7 @@ export default function Home() {
         });
       });
 
-      // Navbar scroll effect
+      // Enhanced navbar scroll effect with 3D transforms
       window.gsap.to('.navbar', {
         scrollTrigger: {
           trigger: 'body',
@@ -40,9 +51,11 @@ export default function Home() {
         backgroundColor: 'rgba(255, 255, 255, 0.95)',
         backdropFilter: 'blur(10px)',
         boxShadow: '0 2px 20px rgba(0, 0, 0, 0.1)',
+        rotationX: 2,
+        transformPerspective: 1000
       });
 
-      // Global page load animations
+      // Global page load animations with advanced effects
       const timeline = window.gsap.timeline();
       timeline
         .from('body', {
@@ -53,23 +66,41 @@ export default function Home() {
         .from('.navbar', {
           y: -100,
           opacity: 0,
+          rotationX: -90,
           duration: 0.8,
-          ease: 'power3.out',
-        }, '<0.2');
+          ease: 'back.out(1.7)',
+        }, '<0.2')
+        .from('.page-section', {
+          opacity: 0,
+          y: 100,
+          rotationX: -15,
+          duration: 1,
+          stagger: 0.2,
+          ease: 'power3.out'
+        }, '<0.4');
     }
   }, [isLoaded]);
 
   return (
     <div className="min-h-screen bg-background overflow-x-hidden" data-testid="home-page">
+      <GeometricBackground />
       <AnimatedWatermark />
       <EventNotificationPopup />
       <Navbar />
       <main>
         <HeroSection />
-        <StatisticsSection />
-        <CoreTeamSlider />
-        <CollaboratorsSection />
-        <EventsSection />
+        <div className="page-section">
+          <StatisticsSection />
+        </div>
+        <div className="page-section">
+          <CoreTeamSlider />
+        </div>
+        <div className="page-section">
+          <CollaboratorsSection />
+        </div>
+        <div className="page-section">
+          <EventsSection />
+        </div>
       </main>
       <Footer />
     </div>
