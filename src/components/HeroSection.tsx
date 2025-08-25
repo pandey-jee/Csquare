@@ -2,12 +2,16 @@ import { useEffect, useRef, useState } from 'react';
 import { Button } from '@/components/ui/button';
 import { Badge } from '@/components/ui/badge';
 import { ArrowRight } from 'lucide-react';
+import { useTheme } from '@/components/theme-provider';
 import JoinClubModal from './JoinClubModal';
 
 export default function HeroSection() {
   const [showJoinModal, setShowJoinModal] = useState(false);
   const logoRef = useRef<HTMLDivElement>(null);
   const textRef = useRef<HTMLDivElement>(null);
+  const { theme } = useTheme();
+
+  const logoSrc = theme === 'dark' ? '/CWhite.png' : '/CBlack.png';
 
   useEffect(() => {
     if (typeof window !== 'undefined' && window.gsap) {
@@ -112,14 +116,14 @@ export default function HeroSection() {
               ref={logoRef}
               className="relative"
             >
-              {/* Large Geometric Logo */}
-              <div className="relative w-80 h-80 lg:w-96 lg:h-96 xl:w-[450px] xl:h-[450px]">
+              {/* Logo Display */}
+              <div className="relative w-80 h-80 lg:w-96 lg:h-96">
                 {/* Main Logo Image */}
                 <div className="absolute inset-0 flex items-center justify-center">
                   <img 
-                    src="/C Square White.png" 
+                    src={logoSrc} 
                     alt="C Square Logo"
-                    className="w-4/5 h-4/5 object-contain drop-shadow-2xl"
+                    className="w-3/4 h-3/4 object-contain drop-shadow-2xl"
                   />
                 </div>
 
@@ -128,9 +132,9 @@ export default function HeroSection() {
                 
                 {/* Floating decorative elements */}
                 <div className="absolute -top-6 -left-6 w-3 h-3 bg-primary rounded-full animate-pulse"></div>
-                <div className="absolute -top-2 -right-8 w-4 h-4 bg-white rounded-full animate-pulse animation-delay-1000"></div>
+                <div className="absolute -top-2 -right-8 w-4 h-4 bg-white/20 rounded-full animate-pulse animation-delay-1000"></div>
                 <div className="absolute -bottom-6 -right-6 w-4 h-4 bg-yellow-400 rounded-full animate-pulse animation-delay-2000"></div>
-                <div className="absolute -bottom-2 -left-8 w-2 h-2 bg-primary rounded-full animate-pulse animation-delay-1500"></div>
+                <div className="absolute -bottom-2 -left-8 w-2 h-2 bg-primary/60 rounded-full animate-pulse animation-delay-1500"></div>
                 
                 {/* Orbital rings for extra visual interest */}
                 <div className="absolute inset-0 border border-primary/20 rounded-full animate-spin" style={{ animationDuration: '20s' }}></div>

@@ -3,6 +3,7 @@ import { Menu, X } from 'lucide-react';
 import { useAuth } from '@/hooks/useAuth';
 import { Button } from '@/components/ui/button';
 import { ThemeToggle } from '@/components/ui/theme-toggle';
+import { useTheme } from '@/components/theme-provider';
 import { gsapUtils, useGSAP } from '@/hooks/useGSAP';
 
 export default function Navbar() {
@@ -10,6 +11,9 @@ export default function Navbar() {
   const [isScrolled, setIsScrolled] = useState(false);
   const { isAuthenticated, user } = useAuth();
   const { isLoaded } = useGSAP();
+  const { theme } = useTheme();
+
+  const logoSrc = theme === 'dark' ? '/CWhite.png' : '/CBlack.png';
 
   useEffect(() => {
     const handleScroll = () => {
@@ -48,7 +52,7 @@ export default function Navbar() {
         <div className="flex items-center justify-between">
           <div className="navbar-logo flex items-center space-x-3">
             <img 
-              src="/C Square White.png" 
+              src={logoSrc} 
               alt="CSquare Logo" 
               className="w-10 h-10 object-contain"
             />

@@ -1,5 +1,5 @@
-import { useEffect, useRef, useState } from 'react';
-import { ChevronLeft, ChevronRight, Github, Linkedin, Twitter, Mail } from 'lucide-react';
+import { useEffect, useState } from 'react';
+import { ChevronLeft, ChevronRight, Github, Linkedin, Instagram } from 'lucide-react';
 import { Badge } from '@/components/ui/badge';
 
 interface TeamMember {
@@ -12,15 +12,13 @@ interface TeamMember {
   social: {
     github?: string;
     linkedin?: string;
-    twitter?: string;
-    email?: string;
+    instagram?: string;
   };
   skills: string[];
   achievements: string[];
 }
 
 const CoreTeamSection = () => {
-  const sliderRef = useRef<HTMLDivElement>(null);
   const [currentSlide, setCurrentSlide] = useState(0);
   const [isLoaded, setIsLoaded] = useState(false);
 
@@ -33,7 +31,7 @@ const CoreTeamSection = () => {
       position: "Full Stack Developer",
       description: "Leading the club towards excellence in competitive programming.",
       image: "https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=400&h=500&fit=crop",
-      social: { github: "#", linkedin: "#", email: "alex@csquare.com" },
+      social: { github: "#", linkedin: "#", instagram: "#" },
       skills: ["React", "Node.js", "Python", "Algorithm Design"],
       achievements: ["ICPC Regional Winner", "Google Summer of Code", "Lead Developer at TechCorp"]
     },
@@ -44,7 +42,7 @@ const CoreTeamSection = () => {
       position: "AI/ML Engineer",
       description: "Passionate about machine learning and competitive coding.",
       image: "https://images.unsplash.com/photo-1494790108755-2616b612b1e0?w=400&h=500&fit=crop",
-      social: { github: "#", linkedin: "#", twitter: "#" },
+      social: { github: "#", linkedin: "#", instagram: "#" },
       skills: ["Python", "TensorFlow", "PyTorch", "Data Structures"],
       achievements: ["Kaggle Expert", "Published Research", "Microsoft Intern"]
     },
@@ -66,7 +64,7 @@ const CoreTeamSection = () => {
       position: "Frontend Developer",
       description: "Creating amazing user experiences and organizing events.",
       image: "https://images.unsplash.com/photo-1438761681033-6461ffad8d80?w=400&h=500&fit=crop",
-      social: { github: "#", twitter: "#", email: "emily@csquare.com" },
+      social: { github: "#", instagram: "#", linkedin: "#" },
       skills: ["React", "TypeScript", "Design Systems", "UI/UX"],
       achievements: ["Design Award Winner", "Frontend Lead", "Community Speaker"]
     },
@@ -88,7 +86,7 @@ const CoreTeamSection = () => {
       position: "Mobile Developer",
       description: "Keeping records and developing mobile applications.",
       image: "https://images.unsplash.com/photo-1544005313-94ddf0286df2?w=400&h=500&fit=crop",
-      social: { github: "#", linkedin: "#", twitter: "#" },
+      social: { github: "#", linkedin: "#", instagram: "#" },
       skills: ["Flutter", "React Native", "Swift", "Kotlin"],
       achievements: ["App Store Featured", "Mobile Expert", "Tech Blogger"]
     }
@@ -124,8 +122,7 @@ const CoreTeamSection = () => {
     social: { 
       github: "#", 
       linkedin: "#", 
-      ...(index % 3 === 0 ? { twitter: "#" } : {}),
-      ...(index % 4 === 0 ? { email: `member${index + 7}@csquare.com` } : {})
+      instagram: "#"
     },
     skills: [
       ["JavaScript", "Node.js", "MongoDB"],
@@ -214,184 +211,132 @@ const CoreTeamSection = () => {
   }
 
   return (
-    <section id="team" className="min-h-screen bg-background relative overflow-hidden py-20">
-      {/* Background */}
-      <div className="absolute inset-0 bg-black/80"></div>
-      
-      {/* Dynamic Background */}
-      <div 
-        className="absolute inset-0 bg-cover bg-center transition-all duration-800 ease-in-out"
-        style={{
-          backgroundImage: `url(${allMembers[currentSlide]?.image})`,
-          filter: 'blur(8px) brightness(0.3)',
-        }}
-      />
-
+    <section id="team" className="py-20 bg-background relative overflow-hidden">
       <div className="container mx-auto px-4 relative z-10">
         {/* Section Header */}
-        <div className="text-center mb-16">
-          <Badge variant="outline" className="text-white border-white/20 bg-white/5 mb-4">
+        <div className="text-center mb-12">
+          <Badge variant="outline" className="mb-4">
             Our Team
           </Badge>
-          <h2 className="text-5xl font-bold text-white mb-4">Meet Our Core Team</h2>
-          <p className="text-xl text-white/80 max-w-2xl mx-auto">
-            30 passionate members driving innovation in competitive programming
+          <h2 className="text-4xl lg:text-5xl font-bold text-foreground mb-4">Meet Our Core Team</h2>
+          <p className="text-xl text-muted-foreground max-w-2xl mx-auto">
+            Passionate members driving innovation in competitive programming
           </p>
         </div>
 
-        {/* Slider */}
-        <div className="slider" ref={sliderRef}>
+        {/* Compact Slider */}
+        <div className="relative max-w-4xl mx-auto">
           <button 
-            className="slider--btn slider--btn__prev"
+            className="absolute left-4 top-1/2 transform -translate-y-1/2 z-20 bg-primary hover:bg-primary/90 text-primary-foreground rounded-full p-3 transition-colors"
             onClick={prevSlide}
           >
-            <ChevronLeft size={40} />
+            <ChevronLeft size={24} />
           </button>
 
-          <div className="slides__wrapper">
-            <div className="slides">
-              {/* Previous Slide */}
-              <div 
-                className="slide" 
-                data-previous
-                style={{ '--slide-width': 'min(25vw, 300px)' } as any}
-              >
-                <div className="slide__inner">
-                  <div className="slide--image__wrapper">
-                    <img 
-                      className="slide--image" 
-                      src={allMembers[getSlideIndex(-1)]?.image} 
-                      alt={allMembers[getSlideIndex(-1)]?.name}
-                    />
-                  </div>
-                </div>
+          <div className="flex justify-center items-center min-h-[400px]">
+            {/* Previous Slide */}
+            <div className="hidden md:block w-48 h-64 mx-4 opacity-50 transform scale-75 transition-all duration-300">
+              <div className="relative w-full h-full rounded-xl overflow-hidden shadow-lg">
+                <img 
+                  className="w-full h-full object-cover" 
+                  src={allMembers[getSlideIndex(-1)]?.image} 
+                  alt={allMembers[getSlideIndex(-1)]?.name}
+                />
               </div>
+            </div>
 
-              {/* Current Slide */}
-              <div 
-                className="slide" 
-                data-current
-                style={{ '--slide-width': 'min(25vw, 300px)' } as any}
-              >
-                <div className="slide__inner">
-                  <div className="slide--image__wrapper">
-                    <img 
-                      className="slide--image" 
-                      src={allMembers[currentSlide]?.image} 
-                      alt={allMembers[currentSlide]?.name}
-                    />
-                  </div>
+            {/* Current Slide */}
+            <div className="w-72 h-96 mx-4 transform scale-100 transition-all duration-300 relative">
+              <div className="relative w-full h-full rounded-xl overflow-hidden shadow-2xl">
+                <img 
+                  className="w-full h-full object-cover" 
+                  src={allMembers[currentSlide]?.image} 
+                  alt={allMembers[currentSlide]?.name}
+                />
+                
+                {/* Name and Position Overlay */}
+                <div className="absolute bottom-0 left-0 right-0 bg-gradient-to-t from-black/80 to-transparent p-4">
+                  <h3 className="text-xl font-bold text-white mb-1">
+                    {allMembers[currentSlide]?.name}
+                  </h3>
+                  <p className="text-primary text-sm font-medium mb-1">
+                    {allMembers[currentSlide]?.role}
+                  </p>
+                  <p className="text-white/80 text-sm">
+                    {allMembers[currentSlide]?.position}
+                  </p>
                 </div>
-              </div>
 
-              {/* Next Slide */}
-              <div 
-                className="slide" 
-                data-next
-                style={{ '--slide-width': 'min(25vw, 300px)' } as any}
-              >
-                <div className="slide__inner">
-                  <div className="slide--image__wrapper">
-                    <img 
-                      className="slide--image" 
-                      src={allMembers[getSlideIndex(1)]?.image} 
-                      alt={allMembers[getSlideIndex(1)]?.name}
-                    />
-                  </div>
+                {/* Social Media Icons - Bottom Right */}
+                <div className="absolute bottom-4 right-4 flex flex-col space-y-2">
+                  {allMembers[currentSlide]?.social.github && (
+                    <a 
+                      href={allMembers[currentSlide].social.github} 
+                      className="bg-white/20 backdrop-blur-sm rounded-full p-2 text-white hover:bg-white/30 transition-colors"
+                      target="_blank"
+                      rel="noopener noreferrer"
+                    >
+                      <Github size={16} />
+                    </a>
+                  )}
+                  {allMembers[currentSlide]?.social.linkedin && (
+                    <a 
+                      href={allMembers[currentSlide].social.linkedin} 
+                      className="bg-white/20 backdrop-blur-sm rounded-full p-2 text-white hover:bg-white/30 transition-colors"
+                      target="_blank"
+                      rel="noopener noreferrer"
+                    >
+                      <Linkedin size={16} />
+                    </a>
+                  )}
+                  {allMembers[currentSlide]?.social.instagram && (
+                    <a 
+                      href={allMembers[currentSlide].social.instagram} 
+                      className="bg-white/20 backdrop-blur-sm rounded-full p-2 text-white hover:bg-white/30 transition-colors"
+                      target="_blank"
+                      rel="noopener noreferrer"
+                    >
+                      <Instagram size={16} />
+                    </a>
+                  )}
                 </div>
               </div>
             </div>
 
-            {/* Slide Info */}
-            <div className="slides--infos">
-              <div className="slide-info" data-current>
-                <div className="slide-info__inner">
-                  <div className="slide-info--text__wrapper">
-                    <div data-title className="slide-info--text">
-                      <span>{allMembers[currentSlide]?.name}</span>
-                    </div>
-                    <div data-subtitle className="slide-info--text">
-                      <span>{allMembers[currentSlide]?.role}</span>
-                    </div>
-                    <div data-description className="slide-info--text">
-                      <span>{allMembers[currentSlide]?.position}</span>
-                    </div>
-                  </div>
-                </div>
+            {/* Next Slide */}
+            <div className="hidden md:block w-48 h-64 mx-4 opacity-50 transform scale-75 transition-all duration-300">
+              <div className="relative w-full h-full rounded-xl overflow-hidden shadow-lg">
+                <img 
+                  className="w-full h-full object-cover" 
+                  src={allMembers[getSlideIndex(1)]?.image} 
+                  alt={allMembers[getSlideIndex(1)]?.name}
+                />
               </div>
             </div>
           </div>
 
           <button 
-            className="slider--btn slider--btn__next"
+            className="absolute right-4 top-1/2 transform -translate-y-1/2 z-20 bg-primary hover:bg-primary/90 text-primary-foreground rounded-full p-3 transition-colors"
             onClick={nextSlide}
           >
-            <ChevronRight size={40} />
+            <ChevronRight size={24} />
           </button>
-        </div>
-
-        {/* Member Details */}
-        <div className="mt-16 bg-black/60 backdrop-blur-md rounded-2xl p-8 border border-white/10">
-          <div className="grid lg:grid-cols-2 gap-8">
-            <div>
-              <h3 className="text-2xl font-bold text-white mb-4">{allMembers[currentSlide]?.name}</h3>
-              <p className="text-white/80 mb-6">{allMembers[currentSlide]?.description}</p>
-              
-              {/* Skills */}
-              <div className="mb-6">
-                <h4 className="text-lg font-semibold text-white mb-3">Skills</h4>
-                <div className="flex flex-wrap gap-2">
-                  {allMembers[currentSlide]?.skills.map((skill, index) => (
-                    <Badge key={index} variant="secondary" className="bg-white/10 text-white border-white/20">
-                      {skill}
-                    </Badge>
-                  ))}
-                </div>
-              </div>
-
-              {/* Social Links */}
-              <div className="flex space-x-4">
-                {allMembers[currentSlide]?.social.github && (
-                  <a href={allMembers[currentSlide].social.github} className="text-white/60 hover:text-white transition-colors">
-                    <Github size={24} />
-                  </a>
-                )}
-                {allMembers[currentSlide]?.social.linkedin && (
-                  <a href={allMembers[currentSlide].social.linkedin} className="text-white/60 hover:text-white transition-colors">
-                    <Linkedin size={24} />
-                  </a>
-                )}
-                {allMembers[currentSlide]?.social.twitter && (
-                  <a href={allMembers[currentSlide].social.twitter} className="text-white/60 hover:text-white transition-colors">
-                    <Twitter size={24} />
-                  </a>
-                )}
-                {allMembers[currentSlide]?.social.email && (
-                  <a href={`mailto:${allMembers[currentSlide].social.email}`} className="text-white/60 hover:text-white transition-colors">
-                    <Mail size={24} />
-                  </a>
-                )}
-              </div>
-            </div>
-
-            <div>
-              {/* Achievements */}
-              <h4 className="text-lg font-semibold text-white mb-3">Achievements</h4>
-              <ul className="space-y-2">
-                {allMembers[currentSlide]?.achievements.map((achievement, index) => (
-                  <li key={index} className="text-white/80 flex items-center">
-                    <span className="w-2 h-2 bg-primary rounded-full mr-3"></span>
-                    {achievement}
-                  </li>
-                ))}
-              </ul>
-            </div>
-          </div>
         </div>
 
         {/* Progress Indicator */}
-        <div className="mt-8 text-center">
-          <span className="text-white/60">
+        <div className="text-center mt-8">
+          <div className="flex justify-center items-center space-x-2 mb-4">
+            {Array.from({ length: Math.min(totalSlides, 10) }, (_, index) => (
+              <button
+                key={index}
+                className={`w-2 h-2 rounded-full transition-colors ${
+                  index === currentSlide % 10 ? 'bg-primary' : 'bg-muted-foreground/30'
+                }`}
+                onClick={() => setCurrentSlide(index)}
+              />
+            ))}
+          </div>
+          <span className="text-muted-foreground text-sm">
             {currentSlide + 1} / {totalSlides}
           </span>
         </div>
