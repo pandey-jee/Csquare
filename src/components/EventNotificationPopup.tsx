@@ -64,7 +64,7 @@ export default function EventNotificationPopup() {
   if (!isVisible || !currentEvent) return null;
 
   return (
-    <div className="fixed top-4 right-4 z-50 animate-in slide-in-from-right duration-500">
+    <div className="fixed top-20 right-4 z-40 animate-in slide-in-from-right duration-500">
       <Card className="w-80 bg-gradient-to-r from-blue-600 to-purple-600 text-white border-none shadow-2xl">
         <CardContent className="p-4">
           <div className="flex items-start justify-between mb-3">

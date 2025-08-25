@@ -147,8 +147,8 @@ export default function EventsSection() {
   }
 
   return (
-    <section id="events" className="py-20 bg-background" data-testid="events-section">
-      <div className="container mx-auto px-6">
+    <section id="events" className="py-24 md:py-32 scroll-mt-20" data-testid="events-section">
+      <div className="container mx-auto px-4 sm:px-6">
         {/* Section Header */}
         <div className="events-title text-center mb-16">
           <Badge variant="secondary" className="mb-4">
