@@ -116,16 +116,16 @@ export default function StatisticsSection() {
     <section id="statistics" className="py-20" data-testid="statistics-section">
       <div className="container mx-auto px-6">
         <div className="text-center mb-16">
-          <h2 className="stats-title text-4xl md:text-5xl font-bold text-white mb-6">
+          <h2 className="stats-title text-4xl md:text-5xl font-bold text-foreground mb-6">
             Our Achievements
           </h2>
-          <p className="text-xl text-white/80 max-w-3xl mx-auto">
+          <p className="text-xl text-muted-foreground max-w-3xl mx-auto">
             Numbers that reflect our community's dedication and growth
           </p>
         </div>
 
         <div className="stats-container grid md:grid-cols-2 lg:grid-cols-4 gap-8 mb-16">
-          <Card className="stats-card bg-white/90 backdrop-blur-sm border-white/20 hover:shadow-2xl transition-all duration-300">
+          <Card className="stats-card bg-card/80 backdrop-blur-sm border-border hover:shadow-2xl transition-all duration-300">
             <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
               <CardTitle className="text-sm font-medium text-muted-foreground">
                 Total Members
@@ -142,7 +142,7 @@ export default function StatisticsSection() {
             </CardContent>
           </Card>
 
-          <Card className="stats-card bg-white/90 backdrop-blur-sm border-white/20 hover:shadow-2xl transition-all duration-300">
+          <Card className="stats-card bg-card/80 backdrop-blur-sm border-border hover:shadow-2xl transition-all duration-300">
             <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
               <CardTitle className="text-sm font-medium text-muted-foreground">
                 Active Contests
@@ -159,7 +159,7 @@ export default function StatisticsSection() {
             </CardContent>
           </Card>
 
-          <Card className="stats-card bg-white/90 backdrop-blur-sm border-white/20 hover:shadow-2xl transition-all duration-300">
+          <Card className="stats-card bg-card/80 backdrop-blur-sm border-border hover:shadow-2xl transition-all duration-300">
             <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
               <CardTitle className="text-sm font-medium text-muted-foreground">
                 Problems Solved
@@ -176,7 +176,7 @@ export default function StatisticsSection() {
             </CardContent>
           </Card>
 
-          <Card className="stats-card bg-white/90 backdrop-blur-sm border-white/20 hover:shadow-2xl transition-all duration-300">
+          <Card className="stats-card bg-card/80 backdrop-blur-sm border-border hover:shadow-2xl transition-all duration-300">
             <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
               <CardTitle className="text-sm font-medium text-muted-foreground">
                 Achievements
@@ -195,15 +195,15 @@ export default function StatisticsSection() {
         </div>
 
         {/* Additional Stats */}
-        <div className="mt-16 bg-white/10 backdrop-blur-sm rounded-2xl p-8 border border-white/20">
+        <div className="mt-16 bg-card/60 backdrop-blur-sm rounded-2xl p-8 border border-border">
           <div className="grid md:grid-cols-2 gap-8">
-            <div className="text-center p-6 bg-white/10 backdrop-blur-sm rounded-xl border border-white/20">
+            <div className="text-center p-6 bg-card/40 backdrop-blur-sm rounded-xl border border-border">
               <h3 className="text-2xl font-bold text-primary mb-2">Weekly</h3>
-              <p className="text-white/80">Regular coding sessions and workshops</p>
+              <p className="text-muted-foreground">Regular coding sessions and workshops</p>
             </div>
-            <div className="text-center p-6 bg-white/10 backdrop-blur-sm rounded-xl border border-white/20">
+            <div className="text-center p-6 bg-card/40 backdrop-blur-sm rounded-xl border border-border">
               <h3 className="text-2xl font-bold text-primary mb-2">Open Source</h3>
-              <p className="text-white/80">Contributing to community projects</p>
+              <p className="text-muted-foreground">Contributing to community projects</p>
             </div>
           </div>
         </div>

@@ -81,16 +81,40 @@ export default function HeroSection() {
         }, "-=0.5");
       }
 
-      // Logo floating animation with 3D rotation
+      // Enhanced logo floating animation with 3D rotation and scaling
       if (heroLogo) {
-        gsap.to('.hero-logo', {
-          y: -20,
-          rotationY: 360,
-          duration: 4,
-          ease: "power2.inOut",
-          yoyo: true,
-          repeat: -1
-        });
+        // Create a more sophisticated animation timeline
+        const logoTimeline = gsap.timeline({ repeat: -1 });
+        
+        logoTimeline
+          .to('.hero-logo img', {
+            y: -15,
+            rotationY: 180,
+            scale: 1.05,
+            duration: 2,
+            ease: "power2.inOut"
+          })
+          .to('.hero-logo img', {
+            y: 0,
+            rotationY: 360,
+            scale: 1,
+            duration: 2,
+            ease: "power2.inOut"
+          })
+          .to('.hero-logo img', {
+            y: -10,
+            rotationX: 15,
+            rotationZ: 5,
+            duration: 1.5,
+            ease: "power2.inOut"
+          })
+          .to('.hero-logo img', {
+            y: 0,
+            rotationX: 0,
+            rotationZ: 0,
+            duration: 1.5,
+            ease: "power2.inOut"
+          });
       }
 
       // Parallax effect for decorative elements
@@ -226,17 +250,18 @@ export default function HeroSection() {
           </div>
 
           {/* Right Content - Logo Section */}
-          <div ref={logoRef} className="hero-logo flex justify-center lg:justify-end order-1 lg:order-2">
-            <div className="relative group max-w-full">
+          <div ref={logoRef} className="hero-logo flex justify-center order-1 lg:order-2">
+            <div className="relative group w-fit">
               {/* Glowing background effect */}
               <div className="absolute inset-0 bg-gradient-to-r from-primary/30 to-blue-500/30 rounded-full blur-2xl scale-150 group-hover:scale-175 transition-transform duration-500"></div>
               
               {/* Logo container */}
-              <div className="relative bg-white/5 backdrop-blur-sm rounded-2xl lg:rounded-3xl p-4 sm:p-6 lg:p-8 xl:p-12 border border-white/10 shadow-2xl max-w-full overflow-hidden">
+              <div className="relative bg-white/5 backdrop-blur-sm rounded-2xl lg:rounded-3xl p-4 sm:p-6 lg:p-8 xl:p-12 border border-white/10 shadow-2xl">
                 <img 
                   src={logoSrc}
                   alt="C Square Logo" 
-                  className="w-32 h-32 sm:w-40 sm:h-40 md:w-48 md:h-48 lg:w-56 lg:h-56 xl:w-64 xl:h-64 object-contain filter drop-shadow-2xl transform hover:scale-105 transition-transform duration-500 mx-auto"
+                  className="w-32 h-32 sm:w-40 sm:h-40 md:w-48 md:h-48 lg:w-56 lg:h-56 xl:w-64 xl:h-64 object-contain filter drop-shadow-2xl mx-auto block"
+                  style={{ transformOrigin: 'center' }}
                 />
                 
                 {/* Rotating ring */}
