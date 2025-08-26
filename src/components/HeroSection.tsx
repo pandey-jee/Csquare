@@ -187,37 +187,43 @@ export default function HeroSection() {
     <section 
       ref={heroRef}
       id="home" 
-      className="min-h-screen flex items-center bg-black relative overflow-hidden pt-20 md:pt-24"
+      className="min-h-screen flex items-center relative overflow-hidden pt-20 md:pt-24 bg-background text-foreground"
     >
-      {/* Animated background gradients */}
-      <div className="absolute inset-0 bg-gradient-to-br from-black via-gray-900 to-black">
-        <div className="absolute inset-0 bg-gradient-to-r from-blue-900/20 via-purple-900/20 to-blue-900/20 animate-pulse"></div>
+      {/* Dynamic themed background gradients */}
+      <div className={`absolute inset-0 ${theme === 'dark' 
+        ? 'bg-gradient-to-br from-black via-gray-900 to-black' 
+        : 'bg-gradient-to-br from-gray-50 via-white to-gray-100'
+      }`}>
+        <div className={`absolute inset-0 animate-pulse ${theme === 'dark'
+          ? 'bg-gradient-to-r from-blue-900/20 via-purple-900/20 to-blue-900/20'
+          : 'bg-gradient-to-r from-blue-100/30 via-purple-100/30 to-blue-100/30'
+        }`}></div>
       </div>
 
-      {/* Floating decorative elements */}
-      <div className="floating-element absolute top-20 left-10 w-4 h-4 bg-primary/30 rounded-full blur-sm"></div>
-      <div className="floating-element absolute top-40 right-20 w-6 h-6 bg-blue-500/20 rounded-full blur-sm"></div>
-      <div className="floating-element absolute bottom-32 left-1/4 w-3 h-3 bg-purple-500/30 rounded-full blur-sm"></div>
-      <div className="floating-element absolute bottom-20 right-1/3 w-5 h-5 bg-primary/20 rounded-full blur-sm"></div>
+      {/* Floating decorative elements - theme aware */}
+      <div className={`floating-element absolute top-20 left-10 w-4 h-4 rounded-full blur-sm ${theme === 'dark' ? 'bg-primary/30' : 'bg-primary/20'}`}></div>
+      <div className={`floating-element absolute top-40 right-20 w-6 h-6 rounded-full blur-sm ${theme === 'dark' ? 'bg-blue-500/20' : 'bg-blue-500/15'}`}></div>
+      <div className={`floating-element absolute bottom-32 left-1/4 w-3 h-3 rounded-full blur-sm ${theme === 'dark' ? 'bg-purple-500/30' : 'bg-purple-500/20'}`}></div>
+      <div className={`floating-element absolute bottom-20 right-1/3 w-5 h-5 rounded-full blur-sm ${theme === 'dark' ? 'bg-primary/20' : 'bg-primary/15'}`}></div>
 
       <div className="container mx-auto px-4 sm:px-6 relative z-10">
-        <div className="grid lg:grid-cols-2 gap-8 lg:gap-16 items-center min-h-[calc(100vh-6rem)]">
+        <div className="grid lg:grid-cols-2 gap-8 lg:gap-16 items-center min-h-[calc(100vh-8rem)] max-w-7xl mx-auto">
           {/* Left Content - Text Section */}
-          <div ref={textRef} className="hero-text space-y-6 lg:space-y-8 lg:pr-8 order-2 lg:order-1">
+          <div ref={textRef} className="hero-text space-y-4 sm:space-y-6 lg:space-y-8 lg:pr-8 order-2 lg:order-1 max-w-full">
             {/* Welcome Headline */}
-            <div className="space-y-4 lg:space-y-6">
-              <h1 className="hero-title text-3xl sm:text-4xl lg:text-5xl xl:text-6xl font-bold text-white leading-tight break-words">
+            <div className="space-y-3 sm:space-y-4 lg:space-y-6">
+              <h1 className="hero-title text-2xl sm:text-3xl lg:text-4xl xl:text-5xl 2xl:text-6xl font-bold leading-tight text-foreground">
                 <span className="animated-welcome block sm:inline">Welcome to</span>{' '}
                 <span className="block text-primary animated-csquare">C Square</span>
               </h1>
               
               {/* Tagline */}
-              <p className="hero-subtitle text-base sm:text-lg lg:text-xl xl:text-2xl text-white/90 leading-relaxed animated-tagline break-words">
+              <p className="hero-subtitle text-sm sm:text-base lg:text-lg xl:text-xl 2xl:text-2xl leading-relaxed animated-tagline text-muted-foreground">
                 Competitive Programming Club
               </p>
               
               {/* Description */}
-              <p className="text-white/80 text-sm sm:text-base lg:text-lg leading-relaxed max-w-xl animated-description break-words">
+              <p className="text-muted-foreground text-xs sm:text-sm lg:text-base xl:text-lg leading-relaxed max-w-lg animated-description">
                 Join our community of passionate coders. Learn, compete, and excel together.
               </p>
             </div>
@@ -236,14 +242,14 @@ export default function HeroSection() {
             </div>
 
             {/* Stats badges */}
-            <div className="flex flex-wrap gap-2 lg:gap-4 pt-6 lg:pt-8">
-              <Badge variant="secondary" className="feature-card px-3 py-1 lg:px-4 lg:py-2 text-xs lg:text-sm bg-white/10 text-white border-white/20">
+            <div className="flex flex-wrap gap-2 lg:gap-4 pt-4 sm:pt-6 lg:pt-8">
+              <Badge variant="secondary" className={`feature-card px-2 sm:px-3 lg:px-4 py-1 lg:py-2 text-xs lg:text-sm ${theme === 'dark' ? 'bg-white/10 text-white border-white/20' : 'bg-primary/10 text-primary border-primary/20'}`}>
                 100+ Members
               </Badge>
-              <Badge variant="secondary" className="feature-card px-3 py-1 lg:px-4 lg:py-2 text-xs lg:text-sm bg-white/10 text-white border-white/20">
+              <Badge variant="secondary" className={`feature-card px-2 sm:px-3 lg:px-4 py-1 lg:py-2 text-xs lg:text-sm ${theme === 'dark' ? 'bg-white/10 text-white border-white/20' : 'bg-primary/10 text-primary border-primary/20'}`}>
                 50+ Contests
               </Badge>
-              <Badge variant="secondary" className="feature-card px-3 py-1 lg:px-4 lg:py-2 text-xs lg:text-sm bg-white/10 text-white border-white/20">
+              <Badge variant="secondary" className={`feature-card px-2 sm:px-3 lg:px-4 py-1 lg:py-2 text-xs lg:text-sm ${theme === 'dark' ? 'bg-white/10 text-white border-white/20' : 'bg-primary/10 text-primary border-primary/20'}`}>
                 Top Rankings
               </Badge>
             </div>
@@ -252,20 +258,20 @@ export default function HeroSection() {
           {/* Right Content - Logo Section */}
           <div ref={logoRef} className="hero-logo flex justify-center order-1 lg:order-2">
             <div className="relative group w-fit">
-              {/* Glowing background effect */}
-              <div className="absolute inset-0 bg-gradient-to-r from-primary/30 to-blue-500/30 rounded-full blur-2xl scale-150 group-hover:scale-175 transition-transform duration-500"></div>
+              {/* Glowing background effect - theme aware */}
+              <div className={`absolute inset-0 rounded-full blur-2xl scale-150 group-hover:scale-175 transition-transform duration-500 ${theme === 'dark' ? 'bg-gradient-to-r from-primary/30 to-blue-500/30' : 'bg-gradient-to-r from-primary/20 to-blue-500/20'}`}></div>
               
-              {/* Logo container */}
-              <div className="relative bg-white/5 backdrop-blur-sm rounded-2xl lg:rounded-3xl p-4 sm:p-6 lg:p-8 xl:p-12 border border-white/10 shadow-2xl">
+              {/* Logo container - theme aware */}
+              <div className={`relative backdrop-blur-sm rounded-2xl lg:rounded-3xl p-3 sm:p-4 lg:p-6 xl:p-8 border shadow-2xl ${theme === 'dark' ? 'bg-white/5 border-white/10' : 'bg-black/5 border-black/10'}`}>
                 <img 
                   src={logoSrc}
                   alt="C Square Logo" 
-                  className="w-32 h-32 sm:w-40 sm:h-40 md:w-48 md:h-48 lg:w-56 lg:h-56 xl:w-64 xl:h-64 object-contain filter drop-shadow-2xl mx-auto block"
+                  className="w-24 h-24 sm:w-32 sm:h-32 md:w-40 md:h-40 lg:w-48 lg:h-48 xl:w-56 xl:h-56 object-contain filter drop-shadow-2xl mx-auto block"
                   style={{ transformOrigin: 'center' }}
                 />
                 
-                {/* Rotating ring */}
-                <div className="absolute inset-0 border-2 border-primary/20 rounded-2xl lg:rounded-3xl animate-spin" style={{ animationDuration: '20s' }}></div>
+                {/* Rotating ring - theme aware */}
+                <div className={`absolute inset-0 border-2 rounded-2xl lg:rounded-3xl animate-spin ${theme === 'dark' ? 'border-primary/20' : 'border-primary/30'}`} style={{ animationDuration: '20s' }}></div>
               </div>
             </div>
           </div>
